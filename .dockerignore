@@ -1,0 +1,5 @@
+.git
+android
+ios
+**/__pycache__
+**/*.sqlite3*

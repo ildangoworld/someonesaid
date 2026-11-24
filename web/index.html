@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f8f8f3">
+  <title>오늘의 문장 · 하루한문장</title>
+  <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 이동</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="하루한문장 홈"><img src="/assets/mark.svg" alt="" width="36" height="36"><span>하루한문장</span></a>
+      <nav class="primary-nav" aria-label="기본 메뉴">
+        <button data-page="today" aria-current="page"><i data-icon="sun"></i>오늘의 문장</button>
+        <button data-page="saved"><i data-icon="bookmark"></i>문장 보관함</button>
+        <button data-page="widget"><i data-icon="widgets"></i>위젯</button>
+      </nav>
+      <div class="account-actions"><button id="submit-header" class="solid"><i data-icon="feather"></i>문장 쓰기</button><button id="account" class="account"><i data-icon="user"></i><span>로그인</span></button></div>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <div class="page-heading"><h1 id="page-title">오늘의 문장</h1><div class="date"><i data-icon="calendar"></i><time id="day"></time></div></div>
+    <section id="today">
+      <div class="daily-layout">
+        <div class="reading-column">
+          <article class="hero">
+            <div class="hero-art">
+              <div class="hero-top"><span id="category" class="tag"><i data-icon="leaf"></i><span></span></span><button class="round save" id="save" aria-label="문장 보관하기"><i data-icon="bookmark"></i></button></div>
+              <div class="text-block"><span class="opening" aria-hidden="true">“</span><blockquote id="quote" aria-live="polite">오늘의 문장을 펼치고 있어요.</blockquote><p class="byline"><span aria-hidden="true"></span><span id="author"></span></p></div>
+            </div>
+            <div class="hero-foot"><button id="discuss" class="discuss"><i data-icon="message"></i>댓글과 반응 보기<i data-icon="chevron-right"></i></button>
+              <div class="pager"><button id="prev" aria-label="이전 문장"><i data-icon="chevron-left"></i></button><span id="position">1 / 3</span><button id="next" aria-label="다음 문장"><i data-icon="chevron-right"></i></button></div>
+            </div>
+          </article>
+          <section class="more"><div class="section-line"><h2>오늘 더 읽기</h2><span>하루 세 편까지</span></div><div id="more-list"></div></section>
+        </div>
+        <aside>
+          <section class="widget-card"><div class="card-heading"><span class="icon-tile"><i data-icon="widgets"></i></span><h2>위젯 미리보기</h2></div>
+            <div class="widget-demo" aria-label="잠금 화면 미리보기">
+              <div class="island" aria-hidden="true"></div><div class="lockdate" id="lockdate"></div><div class="clock" id="clock"></div>
+              <button class="lock-quote" id="lock-quote" aria-label="위젯 문장 상세 보기"><span class="lock-brand"><i data-icon="leaf"></i>하루한문장</span><span id="lock-text"></span></button>
+            </div>
+            <button id="widget-guide" class="guide">위젯 추가 방법<i data-icon="arrow-right"></i></button>
+          </section>
+          <button class="compose-card" id="submit-card"><span class="compose-symbol"><i data-icon="feather"></i></span><span><strong>나의 문장 나누기</strong><small>누군가에게 건네고 싶은 한 줄</small></span><i data-icon="chevron-right"></i></button>
+        </aside>
+      </div>
+    </section>
+    <section id="saved" hidden aria-label="보관한 문장"><div id="saved-list"></div></section>
+    <section id="widget" hidden aria-label="위젯 추가 안내">
+      <div class="guide-panel"><span class="icon-tile"><i data-icon="phone"></i></span><h2>잠금 화면에서 만나는 오늘의 문장</h2><p>하루한문장 앱을 설치하고 위젯을 추가하세요. 문장을 누르면 작성자와 댓글을 볼 수 있어요.</p>
+        <div class="platform-switch" aria-label="사용하는 기기"><button data-platform="ios" aria-pressed="true">iPhone</button><button data-platform="android" aria-pressed="false">Android</button></div>
+        <div id="platform-steps"></div>
+      </div>
+    </section>
+    <p id="page-status" role="status"></p>
+  </main>
+  <dialog id="community-dialog"><button class="dialog-close round" data-close aria-label="닫기"><i data-icon="x"></i></button><div id="dialog-content"></div></dialog>
+</body>
+</html>

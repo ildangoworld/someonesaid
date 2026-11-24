@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">하루한문장</string>
+    <style name="BaseAppTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#FFF9F3</item>
+        <item name="android:navigationBarColor">#372A24</item>
+        <item name="android:windowBackground">#FFF9F3</item>
+        <item name="android:colorAccent">#83513D</item>
+    </style>
+    <style name="AppTheme" parent="@style/BaseAppTheme" />
+</resources>

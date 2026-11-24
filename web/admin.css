@@ -1,0 +1,14 @@
+.admin-tabs,.admin-metrics,.admin-row-actions {display:flex;flex-wrap:wrap;gap:10px}
+.admin-tabs {margin-bottom:16px}
+.admin-tabs button[aria-current] {background:var(--green);color:white}
+.admin-panel {background:white;border:1px solid var(--line);border-radius:18px;padding:clamp(16px,3vw,32px)}
+.admin-panel h2,.admin-panel h3 {margin-bottom:12px}
+.admin-metrics {margin-bottom:24px}
+.admin-metric {background:var(--pale);flex:1 1 110px;border-radius:12px;padding:14px}
+.admin-metric strong {display:block;font-size:27px}
+.admin-row {display:grid;gap:8px;padding:14px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.admin-row:last-child {border:0}
+.admin-form {max-width:540px;margin:12px 0 20px}
+.admin-form h3 {margin:0}
+#admin-status {margin-bottom:12px;color:var(--muted)}
+#admin-status:empty {display:none}
