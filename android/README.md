@@ -13,7 +13,7 @@ adb install -r android/app/build/outputs/apk/debug/app-debug.apk
 
 Open the app to read the primary bundled quote. Use **문장 더 읽기** to reveal the extra daily quotes. Use **연결 설정** to enter the HTTPS origin of the Haru server (scheme, host, and optional port). With a server configured, the app opens the shared community site and keeps its first-party session. Clearing the address returns to the bundled reader.
 
-For development, run the local server on the host and enter `http://10.0.2.2:8000` in the standard Android Emulator, replacing the port as needed. Debug builds also accept `http://localhost` or `http://127.0.0.1` for an adb-reversed port. Release builds require HTTPS. Add `-PharuServer=https://quotes.example.com` to the Gradle command or set `HARU_ANDROID_SERVER` to preconfigure the address for fresh installations. Users can still change or clear it through **연결 설정**.
+For development, run the local server on the host and enter `http://10.0.2.2:8000` in the standard Android Emulator, replacing the port as needed. Debug builds also accept `http://localhost` or `http://127.0.0.1` for an adb-reversed port. Release builds require HTTPS. A clean install uses the production Haru service. To override it, add `-PharuServer=https://quotes.example.com` to the Gradle command or set `HARU_ANDROID_SERVER`. Users can still change or clear it through **연결 설정**.
 
 ## Widget
 

@@ -22,7 +22,7 @@ For a signed device build, set your development team on **Haru** and **HaruWidge
 
 ## Default community server for releases
 
-In the **Haru project’s** Build Settings, set `HARU_DEFAULT_SERVER` for Release to the public HTTPS origin of your Haru deployment, such as `https://haru.example.org`. Both targets inherit this value. A clean install opens that server automatically. An address saved in Settings takes precedence, including a blank address to use offline mode. Tap **기본 서버 사용** to remove a saved override. Leave the build setting blank to ship the app in offline mode until a user configures a server.
+A clean install uses the production Haru service. To use a different deployment, change `HARU_DEFAULT_SERVER` in the **Haru project’s** Build Settings. Both targets inherit this value. A clean install opens that server automatically. An address saved in Settings takes precedence, including a blank address to use offline mode. Tap **기본 서버 사용** to remove a saved override. Leave the build setting blank to ship the app in offline mode until a user configures a server.
 
 You can also provide the value when building from the command line, for example:
 

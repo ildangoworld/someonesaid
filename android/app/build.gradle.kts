@@ -6,7 +6,7 @@ plugins {
 
 val defaultServer = providers.gradleProperty("haruServer")
     .orElse(providers.environmentVariable("HARU_ANDROID_SERVER"))
-    .orElse("")
+    .orElse("https://someonesaid.ildango.chatgpt.site")
     .get()
     .trim()
 val defaultOrigin = if (defaultServer.isEmpty()) "" else {
