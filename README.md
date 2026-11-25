@@ -33,3 +33,9 @@ python3 server/server.py
 ```sh
 python3 -m unittest discover -s server
 ```
+
+## Sites 커뮤니티
+
+Sites 빌드는 Python 3으로 `python3 sites/build.py`를 실행해 생성합니다. Node 24에서 `node sites/smoke.mjs`로 Worker API를 검증할 수 있습니다. Sites 운영 데이터는 `DB` D1 바인딩에 저장됩니다.
+
+첫 관리자 설정에는 Sites 런타임 시크릿 `HARU_ADMIN_KEY`가 필요합니다. 원하는 계정으로 가입 후 로그인하고 관리자 초기 설정 화면에 동일한 키를 입력합니다. 초기 관리자가 생성되면 시크릿을 삭제할 수 있습니다.

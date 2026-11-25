@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>첫 관리자 설정 · 하루한문장</title>
+<link rel="stylesheet" href="/style.css">
+<script type="module" src="/admin-setup.js"></script>
+<main>
+  <h1>첫 관리자 설정</h1>
+  <p>관리자로 사용할 계정으로 로그인한 뒤 Sites 런타임에 등록한 설정 키를 입력하세요.</p>
+  <form class="dialog-form admin-form">
+    <label class="dialog-field">관리자 설정 키<input type="password" required maxlength="256" autocomplete="off"></label>
+    <button class="dialog-primary" type="submit">관리자 설정</button>
+  </form>
+  <p id="setup-status" role="status"></p>
+  <a href="/">서비스로 돌아가기</a>
+</main>
+</html>

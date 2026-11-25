@@ -279,6 +279,7 @@ export default {
         return json({error:'잠시 후 다시 시도해 주세요.'},503);
       }
     }
+    if (path === '/admin/setup') return this.fetch(new Request(new URL('/admin-setup.html',url),request),env);
     const route = path === '/' || /^\/q\/[\w-]+\/?$/.test(path) ? '/index.html' :
       path === '/admin' || path === '/admin/' ? '/admin.html' : path;
     const asset = Object.hasOwn(assets,route) ? assets[route] : null;

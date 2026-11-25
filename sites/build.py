@@ -23,3 +23,12 @@ worker = (root / 'sites' / 'worker.mjs').read_text().split('\n', 1)[1]
     'const assets=' + json.dumps(assets, ensure_ascii=False) + ';\n' +
     'const seeds=' + json.dumps(seeds, ensure_ascii=False) + ';\n' + worker)
 shutil.copytree(root / 'sites' / 'migrations', out / 'migrations', dirs_exist_ok=True)
+
+(out / 'wrangler.json').write_text(json.dumps({
+    'name': 'someonesaid', 'main': 'index.js', 'compatibility_date': '2025-04-01',
+    'd1_databases': [{'binding': 'DB', 'database_name': 'someonesaid',
+                      'database_id': '00000000-0000-0000-0000-000000000000',
+                      'migrations_dir': 'drizzle'}],
+}))
+shutil.copytree(root / 'sites' / 'migrations', out / 'drizzle', dirs_exist_ok=True)
+shutil.copytree(root / 'sites' / 'migrations', root / 'dist' / 'drizzle', dirs_exist_ok=True)
