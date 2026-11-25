@@ -18,8 +18,8 @@ let page, index = 0, quotes = [], loadedDate = '', currentUser = null;
 let requestSerial = 0, savedSerial = 0;
 const community = initCommunity({ onChange(user) {
   currentUser = user;
-  $('#account span').textContent = user?.name || '로그인';
-  $('#account').setAttribute('aria-label', user ? user.name + ' 계정' : '로그인');
+  $('#account span').textContent = user ? '계정 관리' : '로그인';
+  $('#profile-name').textContent = user?.name || '로그인하면 내 문장과 반응을 볼 수 있어요.';
 } });
 
 function make(tag, className, text) {
@@ -154,11 +154,12 @@ function saveIDs(ids) {
 }
 function navigate(next, focus = true) {
   page = next;
-  const titles = {today:'오늘의 문장', saved:'문장 보관함', widget:'위젯 추가 방법'};
+  const titles = {today:'오늘의 문장', saved:'문장 보관함', widget:'위젯 추가 방법', profile:'내 정보'};
   for (const id of Object.keys(titles)) $('#' + id).hidden = id !== next;
   for (const btn of document.querySelectorAll('[data-page]')) {
-    if (btn.dataset.page === next) btn.setAttribute('aria-current','page'); else btn.removeAttribute('aria-current');
+    if (btn.closest('nav') && (btn.dataset.page === next || (next === 'widget' && btn.dataset.page === 'profile'))) btn.setAttribute('aria-current','page'); else btn.removeAttribute('aria-current');
   }
+  $('.date').hidden = next !== 'today';
   $('#page-title').textContent = titles[next];
   document.title = titles[next] + ' · 하루한문장';
   if (focus) { $('#main').focus({preventScroll:true}); window.scrollTo(0,0); }
@@ -190,7 +191,7 @@ $('#save').onclick = () => {
   }
 };
 $('#account').onclick = () => currentUser ? community.openAccount() : community.openAuth();
-$('#submit-header').onclick = $('#submit-card').onclick = () => community.openSubmit();
+$('#submit-header').onclick = () => community.openSubmit();
 $('#community-dialog').addEventListener('close', () => {
   if (/^\/q\//.test(location.pathname)) history.replaceState(null,'','/');
   loadDaily();

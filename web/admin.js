@@ -1,7 +1,7 @@
 const panel = document.querySelector('#admin-panel');
 const status = document.querySelector('#admin-status');
 const tabs = document.querySelector('.admin-tabs');
-const sections = { overview:'현황', members:'회원', submissions:'제출 문장', seeds:'기본 문장', reports:'신고 내역' };
+const sections = { overview:'운영 현황', reports:'신고 내역', submissions:'제출 문장', seeds:'기본 문장', members:'회원 관리' };
 let data;
 let section = 'overview';
 
@@ -73,11 +73,31 @@ function seedForm(q = {}) {
   };
   return form;
 }
+function searchList() {
+  const label = el('label','목록 검색','dialog-field admin-search');
+  const search = el('input');
+  search.type = 'search';
+  search.placeholder = '문장, 닉네임 또는 상태';
+  const result = el('p','','dialog-hint');
+  result.setAttribute('role','status');
+  search.addEventListener('input', () => {
+    const query = search.value.normalize('NFC').trim().toLocaleLowerCase('ko');
+    let count = 0;
+    for (const row of panel.querySelectorAll('.admin-row')) {
+      row.hidden = !row.textContent.toLocaleLowerCase('ko').includes(query);
+      if (!row.hidden) count++;
+    }
+    result.textContent = query ? `검색 결과 ${count}개` : '';
+  });
+  label.append(search);
+  panel.append(label,result);
+}
 function render() {
   const heading = el('h2',sections[section]);
   heading.id = 'admin-heading';
   heading.tabIndex = -1;
   panel.replaceChildren(heading);
+  if (section !== 'overview') searchList();
   for (const tab of tabs.children) tab.setAttribute('aria-current', tab.dataset.section === section ? 'page' : 'false');
   if (section === 'overview') {
     const metrics = el('div','','admin-metrics');
@@ -141,7 +161,7 @@ function render() {
   }
 }
 for (const [key,label] of Object.entries(sections)) {
-  const tab = button(label, () => { section = key; render(); });
+  const tab = button(label, () => { section = key; render(); document.querySelector('#admin-heading').focus(); });
   tab.dataset.section = key;
   tabs.append(tab);
 }

@@ -12,3 +12,22 @@
 .admin-form h3 {margin:0}
 #admin-status {margin-bottom:12px;color:var(--muted)}
 #admin-status:empty {display:none}
+
+.admin-app .header-inner { justify-content: space-between; }
+.admin-app .header-inner > a:last-child { display: flex; align-items: center; min-height: 44px; font-size: .875rem; }
+.admin-app #dashboard { display: grid; grid-template-columns: 11rem minmax(0,1fr); gap: 1.25rem; align-items: start; }
+.admin-app .admin-tabs { position: sticky; top: 1rem; display: grid; gap: .375rem; }
+.admin-app .admin-tabs button { justify-content: flex-start; }
+.admin-app .admin-panel { min-width: 0; }
+.admin-app .admin-metrics { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,8.25rem),1fr)); }
+.admin-app .admin-metric strong { font-variant-numeric: tabular-nums; }
+.admin-app .admin-panel h3:not(:first-child) { margin-top: 1.5rem; }
+.admin-app .admin-row > button { justify-self: start; }
+.admin-app .admin-row-actions a { min-height: 44px; text-decoration: none; }
+.admin-app .admin-search { max-width: 27rem; margin-bottom: .75rem; }
+@media (max-width: 740px) {
+  .admin-app #dashboard { grid-template-columns: minmax(0,1fr); gap: .5rem; }
+  .admin-app .admin-tabs { display: flex; position: static; gap: .375rem; }
+  .admin-app .admin-tabs button { justify-content: center; }
+  .admin-app .admin-metrics { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
