@@ -189,6 +189,13 @@ async function handle(request, env, url) {
       const quotes = await db.all('SELECT * FROM quotes WHERE user_id=? ORDER BY day DESC',user.id);
       return json({quotes:await Promise.all(quotes.map(async q=>({...await db.detail(q,user),hidden:!!q.hidden,day:q.day})))});
     }
+    const adminQuote = path.match(/^\/api\/admin\/quotes\/([\w-]+)$/);
+    if (adminQuote) {
+      requireAdmin();
+      const q = await db.first('SELECT * FROM quotes WHERE id=? AND user_id IS NOT NULL',adminQuote[1]);
+      if (!q) fail(404,'제출 문장을 찾을 수 없어요.');
+      return json({...await db.detail(q,user),hidden:!!q.hidden});
+    }
     if (path === '/api/admin/dashboard') { requireAdmin(); await db.seed(); return json(await db.dashboard()); }
     if (path === '/api/admin') { requireAdmin(); return json({quotes:await db.queue()}); }
     if (kind === 'quotes' && !action) { await db.seed(); return json(await db.detail(await db.quote(id),user)); }

@@ -253,6 +253,14 @@ class Handler(BaseHTTPRequestHandler):
                 self.require_user(user)
                 return {'quotes': [self.quote_detail(db, row, user) | {'hidden': bool(row['hidden']), 'day': row['day']}
                     for row in db.execute('SELECT * FROM quotes WHERE user_id=? ORDER BY day DESC', (user['id'],))]}
+            admin_quote = re.fullmatch(r'/api/admin/quotes/([A-Za-z0-9_-]+)', path)
+            if admin_quote:
+                self.require_admin(user)
+                quote = db.execute('SELECT * FROM quotes WHERE id=? AND user_id IS NOT NULL',
+                                   (admin_quote[1],)).fetchone()
+                if quote is None:
+                    raise APIError(404, '제출 문장을 찾을 수 없어요.')
+                return self.quote_detail(db, quote, user) | {'hidden': bool(quote['hidden'])}
             if path == '/api/admin/dashboard':
                 self.require_admin(user)
                 return self.dashboard(db)

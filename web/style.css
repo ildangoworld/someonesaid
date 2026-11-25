@@ -220,3 +220,28 @@ h1, h2, h3, strong, .brand { letter-spacing: -.035em; }
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
+
+/* Keep navigation quiet and give the text itself the strongest hierarchy. */
+.reader-app .brand { font-size: 1.125rem; font-weight: 550; letter-spacing: -.035em; min-height: 44px; }
+.reader-app .page-heading h1 { font-size: clamp(1.3rem, 2.2vw, 1.65rem); font-weight: 600; }
+.reader-app #quote, .detail-quote {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.reader-app #quote { max-inline-size: 15em; font-weight: 500; }
+.reader-app .opening { font-size: 3.5rem; opacity: .72; }
+.reader-app .hero-art::before { background: linear-gradient(90deg,#fff7dfcc,#fff7df2b); }
+.comment-header .comment-sort {
+  appearance: none;
+  min-height: 44px;
+  padding: .5rem 2.25rem .5rem .875rem;
+  font-size: 1rem;
+  background: var(--surface) url('/assets/chevron-down.svg') no-repeat right .8rem center / 14px;
+}
+@media (forced-colors: active) {
+  .comment-header .comment-sort { appearance: auto; background: Canvas; padding-inline-end: .875rem; }
+}
+.reader-app .quote-row { padding: .875rem 1rem; }
+.reader-app .row-copy strong { font-weight: 550; text-wrap: pretty; }
+.reader-app .hero-art { padding-bottom: clamp(2rem, 6vw, 4rem); }

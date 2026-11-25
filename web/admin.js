@@ -73,6 +73,38 @@ function seedForm(q = {}) {
   };
   return form;
 }
+const detailDialog = document.querySelector('#admin-detail');
+const detailContent = document.querySelector('#admin-detail-content');
+let detailRequest = 0;
+
+async function openSubmission(id) {
+  const requestID = ++detailRequest;
+  detailContent.replaceChildren(el('p','문장과 댓글을 불러오는 중이에요.'));
+  detailDialog.showModal();
+  try {
+    const quote = await request('/api/admin/quotes/' + encodeURIComponent(id));
+    if (!detailDialog.open || requestID !== detailRequest) return;
+    detailContent.replaceChildren(
+      el('blockquote',quote.text,'detail-quote'),
+      el('p',quote.author + ' · ' + (quote.hidden ? '숨김' : '공개'),'detail-byline'),
+      el('p',`좋아요 ${quote.up} · 싫어요 ${quote.down}`,'dialog-hint'),
+      el('h3',`댓글 ${quote.comments.length}개`),
+    );
+    if (!quote.comments.length) detailContent.append(el('p','아직 댓글이 없어요.','dialog-hint'));
+    for (const comment of quote.comments) {
+      const item = row(comment.author,`좋아요 ${comment.up} · 싫어요 ${comment.down}`);
+      item.append(el('p',comment.text,'comment-text'));
+      detailContent.append(item);
+    }
+  } catch (error) {
+    if (detailDialog.open && requestID === detailRequest) {
+      const message = el('p',error.message,'dialog-error');
+      message.setAttribute('role','alert');
+      detailContent.replaceChildren(message);
+    }
+  }
+}
+
 function searchList() {
   const label = el('label','목록 검색','dialog-field admin-search');
   const search = el('input');
@@ -98,7 +130,10 @@ function render() {
   heading.tabIndex = -1;
   panel.replaceChildren(heading);
   if (section !== 'overview') searchList();
-  for (const tab of tabs.children) tab.setAttribute('aria-current', tab.dataset.section === section ? 'page' : 'false');
+  for (const tab of tabs.children) {
+    if (tab.dataset.section === section) tab.setAttribute('aria-current','page');
+    else tab.removeAttribute('aria-current');
+  }
   if (section === 'overview') {
     const metrics = el('div','','admin-metrics');
     for (const [label,value] of Object.entries(data.metrics)) {
@@ -150,10 +185,8 @@ function render() {
           form.querySelector('input').focus();
         });
         actions.append(edit);
-      } else if (!q.hidden) {
-        const link = el('a','문장과 댓글','dialog-secondary');
-        link.href = '/q/' + encodeURIComponent(q.id);
-        actions.append(link);
+      } else {
+        actions.append(button('문장과 댓글', () => openSubmission(q.id)));
       }
       item.append(actions);
       panel.append(item);

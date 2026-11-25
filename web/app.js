@@ -44,19 +44,13 @@ function clockTick() {
   $('#clock').textContent = time.format(now);
   if (loadedDate && loadedDate !== dayKey(now)) loadDaily();
 }
-function excerpt(text) {
-  const units = Array.from(text);
-  return units.length < 19 ? text : units.slice(0, 17).join('').trimEnd() + '…';
-}
-function quoteRow(quote, variant, action, preview) {
-  const btn = make('button', 'quote-row');
-  const thumb = make('span', 'thumb thumb-' + variant);
-  thumb.setAttribute('aria-hidden','true');
+function quoteRow(quote, action) {
+  const button = make('button', 'quote-row');
   const body = make('span', 'row-copy');
-  body.append(make('small', 'row-category', quote.category), make('strong', '', preview ? excerpt(quote.text) : quote.text));
-  btn.append(thumb, body, glyph('chevron-right', 17));
-  btn.onclick = action;
-  return btn;
+  body.append(make('small', 'row-category', quote.category), make('strong', '', quote.text));
+  button.append(body, glyph('chevron-right', 17));
+  button.onclick = action;
+  return button;
 }
 function paintQuote() {
   const q = quotes[index];
@@ -82,7 +76,7 @@ function paintQuote() {
   $('#prev').disabled = index === 0;
   $('#next').disabled = index === quotes.length - 1;
   $('#more-list').replaceChildren(...quotes.flatMap((other, i) => i === index ? [] : [
-    quoteRow(other, i === 1 ? 'leaves' : 'dawn', () => selectQuote(i, true), true),
+    quoteRow(other, () => selectQuote(i, true)),
   ]));
 }
 function selectQuote(i, scroll = false) {
@@ -139,7 +133,7 @@ async function paintSaved() {
   results.forEach((result,i) => {
     const id = saved[i];
     const holder = make('div','saved-item');
-    if (result.status === 'fulfilled') holder.append(quoteRow(result.value, i%2?'dawn':'leaves',() => community.openDetail(id),false));
+    if (result.status === 'fulfilled') holder.append(quoteRow(result.value, () => community.openDetail(id)));
     else holder.append(make('p','',result.reason.status === 404 ? '공개가 종료된 문장이에요.' : '연결 후 다시 열어 주세요.'));
     const remove = make('button','round');
     remove.setAttribute('aria-label','보관함에서 빼기'); remove.append(glyph('x',16));

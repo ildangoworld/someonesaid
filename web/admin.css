@@ -1,6 +1,6 @@
 .admin-tabs,.admin-metrics,.admin-row-actions {display:flex;flex-wrap:wrap;gap:10px}
 .admin-tabs {margin-bottom:16px}
-.admin-tabs button[aria-current] {background:var(--green);color:white}
+.admin-tabs button[aria-current="page"] {background:var(--green);color:white}
 .admin-panel {background:white;border:1px solid var(--line);border-radius:18px;padding:clamp(16px,3vw,32px)}
 .admin-panel h2,.admin-panel h3 {margin-bottom:12px}
 .admin-metrics {margin-bottom:24px}
@@ -31,3 +31,8 @@
   .admin-app .admin-tabs button { justify-content: center; }
   .admin-app .admin-metrics { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
+.admin-app .admin-tabs button[aria-current="page"] { box-shadow: inset 3px 0 #a6c4a8; }
+.admin-detail-inner { padding: 1.5rem; }
+.admin-detail-inner > h2 { margin-bottom: 1.25rem; padding-inline-end: 2.5rem; }
+#admin-detail-content { display: grid; gap: .75rem; overflow-wrap: anywhere; }
+#admin-detail-content h3 { margin-top: .5rem; }

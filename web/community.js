@@ -179,7 +179,7 @@ export function initCommunity({ onChange }) {
 
   function openSubmit() {
     if (!user) return openAuth({ after: openSubmit });
-    const screen = view('하루 한 문장', '나누고 싶은 한 줄', '하루에 한 번, 48자 이내로 문장을 올릴 수 있어요.');
+    const screen = view('하루 한 문장', '문장 쓰기', '올린 문장은 다른 사람의 오늘의 문장과 위젯에 소개될 수 있어요. 하루에 한 편, 48자까지 쓸 수 있어요.');
     const quote = control('input', 'community-quote', { type: 'text', autocomplete: 'off' });
     const counter = element('span', 'dialog-hint', '0 / 48자');
     const category = control('select', 'community-category');
