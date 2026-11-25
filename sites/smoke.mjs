@@ -1,16 +1,14 @@
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
 import {DatabaseSync} from 'node:sqlite';
 import worker from '../dist/server/index.js';
 
 const sqlite = new DatabaseSync(':memory:');
 sqlite.exec('PRAGMA foreign_keys=ON');
-sqlite.exec(readFileSync(new URL('./migrations/0000_initial.sql',import.meta.url),'utf8'));
 const DB = {
   prepare(sql) { return {bind(...values) {
-    const s=sqlite.prepare(sql);
-    return {all:()=>({results:s.all(...values)}),first:()=>s.get(...values),
-      run:()=>({meta:s.run(...values)})};
+    const s=()=>sqlite.prepare(sql);
+    return {all:()=>({results:s().all(...values)}),first:()=>s().get(...values),
+      run:()=>({meta:s().run(...values)})};
   }}; },
   async batch(statements) {
     sqlite.exec('BEGIN');

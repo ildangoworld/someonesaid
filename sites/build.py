@@ -18,10 +18,13 @@ for path in sorted((root / 'web').rglob('*')):
     body = b64encode(path.read_bytes()).decode() if binary else path.read_text()
     assets[key] = [kind if binary else kind + '; charset=utf-8', body, binary]
 seeds = json.loads((root / 'shared' / 'seeds.json').read_text())
+schema = (root / 'sites/migrations/0000_initial.sql').read_text()
+statements = [statement.strip() for statement in schema.split(';') if statement.strip()]
 worker = (root / 'sites' / 'worker.mjs').read_text().split('\n', 1)[1]
 (out / 'index.js').write_text(
     'const assets=' + json.dumps(assets, ensure_ascii=False) + ';\n' +
-    'const seeds=' + json.dumps(seeds, ensure_ascii=False) + ';\n' + worker)
+    'const seeds=' + json.dumps(seeds, ensure_ascii=False) + ';\n' +
+    'const initialSchema=' + json.dumps(statements) + ';\n' + worker)
 shutil.copytree(root / 'sites' / 'migrations', out / 'migrations', dirs_exist_ok=True)
 
 (out / 'wrangler.json').write_text(json.dumps({

@@ -157,9 +157,15 @@ class Community {
   }
 }
 
+async function ensureInitialSchema(db) {
+  const marker = await db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='reports'").bind().first();
+  if (!marker) await db.batch(initialSchema.map(sql => db.prepare(sql).bind()));
+}
+
 async function handle(request, env, url) {
   const path = url.pathname;
   const method = request.method;
+  await ensureInitialSchema(env.DB);
   const db = new Community(env.DB);
   if (method === 'GET' && (path === '/api/daily' || path === '/seeds.json')) {
     await db.seed();
